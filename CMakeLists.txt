@@ -11,13 +11,11 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/jetblacksalvation/OOGL-Cmake.git
   GIT_TAG        master  
 )
-FetchContent_GetProperties(OOGL)
 
 add_executable(GAW-EngineExe "src/GAW_RenderMain/GAW-Engine.cpp")
 add_library(GAW-EngineLib "src/GAW_RenderMain/GAW-Engine.cpp")
 
 if(NOT OOGL_POPULATED)
-  FetchContent_Populate(dependency1)
 
     target_include_directories(GAW-EngineLib PUBLIC "${OOGL_SOURCE_DIR}/include")
     target_include_directories(GAW-EngineLib PUBLIC "${OOGL_SOURCE_DIR}/src/GL")
@@ -53,8 +51,8 @@ find_package(OpenGL REQUIRED)
 #target_link_libraries(GAW-EngineLib OpenGL::GL)
 find_library(OOGL oogl)
 
-target_link_libraries(GAW-EngineExe oogl)
-#target_link_libraries(GAW-EngineExe PUBLIC  OOGL OpenGL::GL)
+#target_link_libraries(GAW-EngineExe oogl)
+target_link_libraries(GAW-EngineExe PUBLIC   OOGL_LIB)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     #install and link x11 
