@@ -15,44 +15,41 @@ FetchContent_Declare(
 add_executable(GAW-EngineExe "src/GAW_RenderMain/GAW-Engine.cpp")
 add_library(GAW-EngineLib "src/GAW_RenderMain/GAW-Engine.cpp")
 
-if(NOT OOGL_POPULATED)
-
-    target_include_directories(GAW-EngineLib PUBLIC "${OOGL_SOURCE_DIR}/include")
-    target_include_directories(GAW-EngineLib PUBLIC "${OOGL_SOURCE_DIR}/src/GL")
-
-    target_include_directories(GAW-EngineExe PUBLIC "${OOGL_SOURCE_DIR}/include")
-    target_include_directories(GAW-EngineExe PUBLIC "${OOGL_SOURCE_DIR}/src/GL")
-endif()
-
-
-
 message(STATUS "OOGL_SOURCE_DIR: ${OOGL_SOURCE_DIR}")
 message(STATUS "OOGL_SOURCE_DIR: ${OOGL_SOURCE_DIR}/src/GL")
 FetchContent_MakeAvailable(OOGL)
 
+if(NOT OOGL_POPULATED)
+
+    target_include_directories(GAW-EngineLib PUBLIC "${OOGL_SOURCE_DIR}/include")
+    target_include_directories(GAW-EngineExe PUBLIC "${OOGL_SOURCE_DIR}/include")
+endif()
+
+
 add_definitions(-DSCRIPTS="${CMAKE_SOURCE_DIR}/glsl_scripts")
+add_definitions(-DSCRIPTS="${CMAKE_SOURCE_DIR}/configs")
 
 
-
+FetchContent_Declare(
+  JSONJayLib
+  GIT_REPOSITORY https://gitlab.shodan.fyi/AvianAssembly/JSON-Jay.git
+  GIT_TAG        v0.1.0  
+)
+FetchContent_MakeAvailable(JSONJayLib)
 add_subdirectory("${OOGL_SOURCE_DIR}/src/GL")
 
 
 
 add_subdirectory("src")
-add_subdirectory("includes")
+include_directories("includes")
 
-target_include_directories(GAW-EngineLib PUBLIC  "includes")
-target_include_directories(GAW-EngineLib PUBLIC  "src")
-
-target_include_directories(GAW-EngineExe PUBLIC  "includes")
-target_include_directories(GAW-EngineExe PUBLIC  "src")
 
 find_package(OpenGL REQUIRED)
 #target_link_libraries(GAW-EngineLib OpenGL::GL)
 find_library(OOGL oogl)
 
 #target_link_libraries(GAW-EngineExe oogl)
-target_link_libraries(GAW-EngineExe PUBLIC   OOGL_LIB)
+target_link_libraries(GAW-EngineExe PUBLIC  OOGL_LIB)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     #install and link x11 
