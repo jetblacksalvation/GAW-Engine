@@ -1,36 +1,37 @@
 #ifndef GAW_ENGINE_WINDOW 
 #define GAW_ENGINE_WINDOW 1
+#include "GL/OOGL.hpp"
 
-#include "GAW_RenderMain/GAW-Engine.h"
 #include <unordered_map>
 #include <string>
+#include <vector>
 namespace GAWEngine
 {
-	class GAWWindow
+	struct GAWWindow
 	{
 	public:
 		uint64_t resolution[2];
+		GL::Window window;
 
 
 	};
-	static GAWWindow __GAW_DEFUALT_WINDOW;
 
 	class WindowManager
 	{
 	private:
-		WindowManager();
-		/*
-			On construction, load defaults and keep track of windows.
-		*/
 
 		std::unordered_map<std::string, GAWWindow> entries;
 	public:
-		GAWWindow operator[](std::string s) { return entries[s]; };
+		WindowManager();
+		/*
+			On construction, reads the config wrapper for the defualt window size/name
+		*/
+
+		GAWWindow& operator[](std::string s) { return entries[s]; };
 
 	};
 
 
-	GAWWindow get_window_properties();
 	/*
 		returns a copy of the current window
 	*/

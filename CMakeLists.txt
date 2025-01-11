@@ -1,7 +1,7 @@
 ﻿cmake_minimum_required(VERSION 3.8)
 
 project("GAW-Engine")
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 
 include(FetchContent)
 include(FindOpenGL)
@@ -36,6 +36,12 @@ FetchContent_Declare(
   GIT_TAG        v0.1.0  
 )
 FetchContent_MakeAvailable(JSONJayLib)
+
+#target_link_libraries(GAW-EngineLib PUBLIC JSONJayLib)
+#target_link_libraries(GAW-EngineExe PUBLIC JSONJayLib)
+#add_subdirectory("${JSONJayLib_SOURCE_DIR}/include")
+#include dirs for this lib isn't work rn
+
 add_subdirectory("${OOGL_SOURCE_DIR}/src/GL")
 
 

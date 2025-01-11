@@ -2,6 +2,8 @@
 #define GAW_ENGINE_MAIN 1
 
 #include "GL/OOGL.hpp"
+//#include "BufferStreamReadinator.hpp"
+
 #include <iostream>
 #include <array>
 #include <fstream>
@@ -9,7 +11,10 @@
 
 namespace GAWEngine
 {
+	void load_configs() 
+	{
 
+	};
 	void initialize()
 	{
 		GL::Window window(800, 800, "OpenGL Window", GL::WindowStyle::Close);
